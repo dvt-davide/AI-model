@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include<cstdarg>
+#include<cfloat>
 #include<time.h>
 #include<string>
 #include<sstream>
@@ -377,7 +378,7 @@ void feed(model m, record r)
 	}
 #endif
 	for (size_t x = 0; x < r.size; x++) 
-	{ // non si può usare il feed del nodo in questo caso
+	{ // non si puï¿½ usare il feed del nodo in questo caso
 		if (m.network[x].is.size == 1)
 			m.network[x].is.content[0] = r.content[x];
 #ifndef MODEL_LIB_H_SUPPRESS_CHECKS
