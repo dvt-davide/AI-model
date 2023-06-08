@@ -247,7 +247,7 @@ void backpropagation(model m, record input, record answer)
 	forward(m);
 	guess(m, &output);
 	externalize_record(output);
-	internalize_record(answer);
+	externalize_record(answer);
 
 #ifndef MODEL_LIB_H_SUPPRESS_CHECKS
 	if (output.size != answer.size)
@@ -272,6 +272,7 @@ void backpropagation(model m, record input, record answer)
 			answer_idx--;
 		}
 	}
+	internalize_record(answer);
 }
 
 void externalize_value(float* v)
@@ -528,9 +529,13 @@ void correct(node* n, float answer, record b_answer)
 		exit(1);
 	}
 #endif
-	float error = answer - n->o;
-	float db = BCKPRP * BCKPRP * error * OUTQ * RATE;
 
+	float error = answer - n->o;
+	float db = BCKPRP * BCKPRP * OUTQ * error * RATE;
+
+	std::cout << "Output: " << n->o << " Answer: " << answer << std::endl;
+	std::cout << "Error: " << error << " db: " << db << std::endl;
+	
 	n->b += db;
 
 	for (size_t x = 0; x < n->is.size; x++)
